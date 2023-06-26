@@ -1,8 +1,7 @@
-import {configureStore, ThunkAction, Action, combineReducers} from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import {Action, combineReducers, configureStore, ThunkAction} from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
-import { persistReducer, persistStore } from 'redux-persist';
-import thunk from 'redux-thunk';
+import {persistReducer} from 'redux-persist';
+import {postsReducer} from "..//features/posts/postsSlice";
 
 const persistConfig = {
   key:'root',
@@ -10,8 +9,10 @@ const persistConfig = {
   version:1
 }
 
+
 const reducer = combineReducers({
-  counter: counterReducer,
+  // counter: counterReducer,
+  posts: postsReducer,
 
 })
 
