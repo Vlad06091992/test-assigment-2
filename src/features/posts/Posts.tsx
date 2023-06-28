@@ -6,9 +6,15 @@ import {postsActions, postsThunks} from "features/posts/postsSlice";
 import {Post} from "features/posts/post/post";
 import {FormControl, InputLabel, MenuItem, Pagination, Select, SelectChangeEvent} from "@mui/material";
 import {Preloader} from "common/preloader/Preloader";
+import {useLocation} from "react-router-dom";
+import {appSlice} from "app/appSlice";
 
 
 export const Posts = React.memo(() => {
+
+    const url = useLocation().pathname
+
+
 
     const dispatch = useAppDispatch()
     const posts = useSelector((state: RootState) => state.posts.posts)
@@ -18,7 +24,10 @@ export const Posts = React.memo(() => {
     const NumberOfPostsPerPage = useSelector((state: RootState) => state.posts.commonLength)
     const totalNumberOfPages = Math.ceil(NumberOfPostsPerPage / limit)
 
-    console.log(page)
+
+    useEffect(()=>{
+        dispatch(appSlice.actions.setCurrentURL(url))
+    },[])
 
     useEffect(() => {
         dispatch(postsThunks.fetchPosts({page, limit}))
@@ -50,6 +59,7 @@ export const Posts = React.memo(() => {
                             onChange={_handleChange}
                             size={"small"}
                         >
+                            <MenuItem value={3}>3</MenuItem>
                             <MenuItem value={10}>10</MenuItem>
                             <MenuItem value={20}>20</MenuItem>
                             <MenuItem value={50}>50</MenuItem>

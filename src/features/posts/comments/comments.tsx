@@ -12,7 +12,6 @@ export const Comments = (props: CommentsPropsType) => {
     let post = useAppSelector(state => state.posts.posts.find(el => el.id === props.postId))
     let comments = post?.comments
 
-    console.log(comments)
 
     useEffect(() => {
         dispatch(postsThunks.getComments({postId: props.postId}))

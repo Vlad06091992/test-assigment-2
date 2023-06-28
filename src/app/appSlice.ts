@@ -9,11 +9,13 @@ import {postsAPI} from "features/posts/postsAPI";
 export type AppType = {
    isLoading:boolean
     error: string | null
+    currentURL:string
 }
 
 const initialState: AppType = {
     isLoading: false,
-    error: null
+    error: null,
+    currentURL:''
 }
 
 export const appSlice = createSlice({
@@ -27,6 +29,13 @@ export const appSlice = createSlice({
             // which detects changes to a "draft state" and produces a brand new
             // immutable state based off those changes
             state.isLoading = action.payload.value;
+        },
+        setCurrentURL: (state,action) => {
+            // Redux Toolkit allows us to write "mutating" logic in reducers. It
+            // doesn't actually mutate the state because it uses the Immer library,
+            // which detects changes to a "draft state" and produces a brand new
+            // immutable state based off those changes
+            state.currentURL = action.payload;
         },
         // decrement: (state) => {
         //     state.value -= 1;
@@ -51,6 +60,6 @@ type fetchPostsArgType = {
 
 
 
-export const appThunks = {}
+
 export const appReducer = appSlice.reducer
 export const { setLoading } = appSlice.actions;

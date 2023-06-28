@@ -5,13 +5,25 @@ import closeIcon from './closeOutline.svg'
 import {Button} from "@mui/material";
 import {inspect} from "util";
 import styles from "./Root.module.scss"
+import {useSelector} from "react-redux";
+import {RootState} from "app/store";
 
 
 export const Root = () => {
     const navigate = useNavigate();
+    const currentURL = useSelector((state: RootState) => state.app.currentURL)
+
+
+    const button = {"display": "block", "margin": "20px", "width": "80%"}
+    const activeButton = {...button,"background": "blue",}
+
 
     useEffect(() => {
-        navigate('/posts');
+        if (currentURL == '') {
+            navigate('/posts');
+        } else {
+            navigate(currentURL)
+        }
     }, [])
 
 
@@ -20,7 +32,7 @@ export const Root = () => {
             <aside className={styles.aside}>
                 <Link to={'posts'} style={{textDecoration: 'none'}}>
                     <Button
-                        sx={{"display": "block", "margin": "20px", "width": "80%"}}
+                        sx={ currentURL === "/posts" ? activeButton : button}
                         size={'large'}
                         variant="contained"
                         color={'primary'}
@@ -30,7 +42,7 @@ export const Root = () => {
                 </Link>
                 <Link to={'todos'} style={{textDecoration: 'none'}}>
                     <Button
-                        sx={{"display": "block", "margin": "20px", "width": "80%"}}
+                        sx={ currentURL === "/todos" ? activeButton : button}
                         size={'large'}
                         variant="contained"
                         color={'primary'}
@@ -40,7 +52,7 @@ export const Root = () => {
                 </Link>
                 <Link to={'photos'} style={{textDecoration: 'none'}}>
                     <Button
-                        sx={{"display": "block", "margin": "20px", "width": "80%"}}
+                        sx={ currentURL === "/photos" ? activeButton : button}
                         size={'large'}
                         variant="contained"
                         color={'primary'}
