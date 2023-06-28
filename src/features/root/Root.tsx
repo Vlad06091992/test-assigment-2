@@ -17,10 +17,10 @@ export const Root = () => {
 
     return (
         <div className={styles.root}>
-            <aside>
-                <Link to={'posts'} style={{ textDecoration: 'none'}}>
+            <aside className={styles.aside}>
+                <Link to={'posts'} style={{textDecoration: 'none'}}>
                     <Button
-                        sx={{"display":"block", "margin":"20px","width":"80%"}}
+                        sx={{"display": "block", "margin": "20px", "width": "80%"}}
                         size={'large'}
                         variant="contained"
                         color={'primary'}
@@ -28,9 +28,9 @@ export const Root = () => {
                         Posts
                     </Button>
                 </Link>
-                <Link to={'todos'} style={{ textDecoration: 'none' }}>
+                <Link to={'todos'} style={{textDecoration: 'none'}}>
                     <Button
-                        sx={{"display":"block", "margin":"20px","width":"80%"}}
+                        sx={{"display": "block", "margin": "20px", "width": "80%"}}
                         size={'large'}
                         variant="contained"
                         color={'primary'}
@@ -38,9 +38,9 @@ export const Root = () => {
                         Todos
                     </Button>
                 </Link>
-                <Link to={'photos'} style={{ textDecoration: 'none' }}>
+                <Link to={'photos'} style={{textDecoration: 'none'}}>
                     <Button
-                        sx={{"display":"block", "margin":"20px","width":"80%"}}
+                        sx={{"display": "block", "margin": "20px", "width": "80%"}}
                         size={'large'}
                         variant="contained"
                         color={'primary'}
@@ -50,8 +50,8 @@ export const Root = () => {
                 </Link>
 
             </aside>
-<div className={styles.rightLine}></div>
-            <div>
+            <div className={styles.rightLine}></div>
+            <div className={styles.outlet}>
                 <Outlet/>
             </div>
         </div>

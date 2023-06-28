@@ -1,31 +1,47 @@
 import {postsThunks, PostType} from "features/posts/postsSlice";
 import {useAppDispatch} from "app/hooks";
-import {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {postsAPI} from "features/posts/postsAPI";
+import {Button} from "@mui/material";
+import styles from "./post.module.scss"
+import {Comments} from "features/posts/comments/comments";
+import {useSelector} from "react-redux";
+import {RootState} from "app/store";
 
-export const Post = (props:PostType) => {
+export const Post = React.memo((props:PostType) => {
+    const limit = useSelector((state: RootState) => state.posts.limit)
+    const page = useSelector((state: RootState) => state.posts.page)
 
-    const dispatch = useAppDispatch()
-    const postId = props.id
-    const userId = props.userId
-    const comments = props.comments
-
+    console.log(limit)
 
     useEffect(()=>{
-        dispatch(postsThunks.getUserName({userId,id: postId}))
-        dispatch(postsThunks.getComments({postId}))
-    },[postId,userId,comments])
+
+        if(props.userName == ''){
+            dispatch(postsThunks.getUserName({userId:props.userId,id: props.id}))
+
+        }
+
+    },[props.id,limit,page,props.userName])
 
 
+    let[showComments,setShowComments] = useState(false)
+
+    const dispatch = useAppDispatch()
 
 
-    return <div style={{"margin":"20px"}}>
+    return <div className={styles.post} >
         <div>TITLE: {props.title}</div>
+        <div>AUTHOR : {props.userName}</div>
         <div>POSTBODY: {props.body}</div>
-        <h2>commnts</h2>
 
+        <Button onClick={()=>{setShowComments(!showComments)}}>Comments</Button>
+        <Button>Edit</Button>
+        <Button>Delete</Button>
+        <Button>To favorites</Button>
+
+        {showComments && <h2>commnts</h2>}
         <div>
-            {comments.map((el) => <div>{el.email}</div>)}
+            {showComments && <Comments postId={props.id} />}
         </div>
     </div>
-}
+})

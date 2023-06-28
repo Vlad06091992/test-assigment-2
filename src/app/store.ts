@@ -2,6 +2,7 @@ import {Action, combineReducers, configureStore, ThunkAction} from '@reduxjs/too
 import storage from 'redux-persist/lib/storage';
 import {persistReducer} from 'redux-persist';
 import {postsReducer} from "..//features/posts/postsSlice";
+import {appReducer} from "app/appSlice";
 
 const persistConfig = {
   key:'root',
@@ -13,6 +14,7 @@ const persistConfig = {
 const reducer = combineReducers({
   // counter: counterReducer,
   posts: postsReducer,
+  app:appReducer
 
 })
 
